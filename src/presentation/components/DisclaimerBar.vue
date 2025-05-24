@@ -39,7 +39,7 @@ watch(
     <div className="flex items-center gap-4">
       <RouterLink
         class="font-bold bg-yellow-300 hover:bg-yellow-400 transition-colors duration-300 py-4 px-4"
-        to="https://github.com/kiq17/urban-front"
+        to="https://github.com/kiq17/urban-strw-front"
         >Acessar</RouterLink
       >
       <button
