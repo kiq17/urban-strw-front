@@ -1,21 +1,17 @@
 <script lang="ts" setup>
+import { ProductModel } from "@/domain/models";
+import { LoadSingleProduct } from "@/domain/usecases";
 import { LocalStorageAdapter } from "@/infra/cache/localStorage.adapter";
 import { useModal } from "@/main/composables/useModal";
 import { purchaseStore } from "@/main/store/purchase";
-import {
-  getDetailsProduct,
-  getProductById,
-  toggleFavorites,
-} from "@/services/api";
-import { ProductModel } from "@/domain/models";
-import { AxiosError } from "axios";
-import { onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { getDetailsProduct, toggleFavorites } from "@/services/api";
 import { HeartIcon } from "@heroicons/vue/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/vue/24/solid";
+import { onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
 const sizes = ["P", "M", "G", "GG"];
-const sizest = ["40", "41", "42", "43"]
+const sizest = ["40", "41", "42", "43"];
 
 interface Details {
   modelo: string;
@@ -28,6 +24,7 @@ const { params } = useRoute();
 
 interface Props {
   storage: LocalStorageAdapter;
+  loadSingleProduct: LoadSingleProduct;
 }
 
 const props = defineProps<Props>();
@@ -78,13 +75,16 @@ async function handleToggle() {
 }
 
 onMounted(async () => {
-  const res = await getProductById(params.slug);
-  const resd = await getDetailsProduct(res.id);
-  if (res instanceof AxiosError) {
+  try {
+    const res = await props.loadSingleProduct.collect(params.slug.toString());
+    const resd = await getDetailsProduct(res.id);
+    product.value = res;
+    details.value = resd;
+  } catch (err) {
+    console.log(err);
     error.value = "Erro ao carregar produto";
   }
-  product.value = res;
-  details.value = resd;
+
   loading.value = false;
 });
 </script>
