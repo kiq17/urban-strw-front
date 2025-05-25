@@ -1,8 +1,13 @@
 import axios, { AxiosError } from "axios";
 import { User } from "./interfaces/user/user";
 
+const apiUrl =
+  import.meta.env.MODE == "development"
+    ? import.meta.env.VITE_API_URL_DEV
+    : import.meta.env.VITE_API_URL_PROD;
+
 const api = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: apiUrl,
   withCredentials: true
 });
 
