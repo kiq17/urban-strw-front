@@ -60,7 +60,7 @@ function handleClick(item: imgProps) {
         :src="selected ? selected.img : ''"
       />
     </div>
-    <div class="w-28 flex flex-col justify-between">
+    <div class="w-28 flex flex-col gap-8">
       <img
         :src="item.img"
         class="h-24 cursor-pointer object-cover hover:opacity-100 transition-opacity duration-300"
