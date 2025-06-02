@@ -30,9 +30,9 @@ watch(
 <template>
   <div
     v-if="isOpen"
-    className="flex items-center justify-between w-full gap-4 fixed bottom-0 bg-zinc-300 py-5 px-20"
+    className="flex items-center justify-between w-full gap-4 fixed bottom-0 bg-zinc-300 py-5 px-20 max-sm:flex-col"
   >
-    <p class="text-lg">
+    <p class="text-lg max-sm:text-center">
       Para uma melhor experiência durante o acesso ao site consulte a
       documentação
     </p>

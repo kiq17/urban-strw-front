@@ -79,7 +79,7 @@ function handleSizeChange() {
         ></span>
       </button>
       <nav
-        class="max-lg:h-0 max-lg:transition-all max-lg:duration-300 max-lg:fixed max-lg:top-20 max-lg:bg-black max-lg:w-[360px] max-lg:flex max-lg:justify-center max-lg:overflow-y-hidden max-lg:items-center group-data-[open='true']:h-screen group-data-[open='true']:visible group-data-[open='false']:visible"
+        class="max-lg:h-0 max-lg:transition-all max-lg:duration-300 max-lg:fixed max-lg:top-20 max-lg:bg-black max-lg:w-[360px] max-lg:flex max-lg:justify-center max-lg:overflow-y-hidden max-lg:items-center group-data-[open='true']:h-screen group-data-[open='true']:visible group-data-[open='false']:visible max-sm:w-full max-sm:left-0"
       >
         <ul
           class="flex gap-16 max-lg:gap-5 text-zinc-300 items-center relative max-lg:flex-col max-lg:text-center max-lg:-mt-28"
