@@ -99,12 +99,12 @@ watch(
 <template>
   <ChevronDoubleLeftIcon
     @click="goToFirst"
-    class="group-data-[state='true']:cursor-not-allowed w-6 h-6"
+    class="group-data-[state='true']:cursor-not-allowed w-6 h-6 max-sm:w-4 max-sm:h-4"
     :class="pageNumber == 1 ? 'cursor-not-allowed' : 'cursor-pointer'"
   />
   <ChevronLeftIcon
     @click="goToPrev"
-    class="group-data-[state='true']:cursor-not-allowed w-6 h-6"
+    class="group-data-[state='true']:cursor-not-allowed w-6 h-6 max-sm:w-4 max-sm:h-4"
     :class="pageNumber == 1 ? 'cursor-not-allowed' : 'cursor-pointer'"
   />
   <div class="flex gap-4 group-data-[state='true']:cursor-not-allowed">
@@ -123,7 +123,7 @@ watch(
   </div>
   <ChevronRightIcon
     @click="gotToNext"
-    class="group-data-[state='true']:cursor-not-allowed w-6 h-6"
+    class="group-data-[state='true']:cursor-not-allowed w-6 h-6 max-sm:w-4 max-sm:h-4"
     :class="
       pageNumber == Math.ceil(totalItens / itensPerPage)
         ? 'cursor-not-allowed'
@@ -132,7 +132,7 @@ watch(
   />
   <ChevronDoubleRightIcon
     @click="goToLast"
-    class="group-data-[state='true']:cursor-not-allowed w-6 h-6"
+    class="group-data-[state='true']:cursor-not-allowed w-6 h-6 max-sm:w-4 max-sm:h-4"
     :class="
       pageNumber == Math.ceil(totalItens / itensPerPage)
         ? 'cursor-not-allowed'

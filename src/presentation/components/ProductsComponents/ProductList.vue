@@ -268,7 +268,7 @@ function handleOpenMenu() {
     <div
       :data-state="loadingP"
       v-if="productsP.length > 0"
-      class="mt-24 self-end flex gap-5 items-center group max-lg:m-auto"
+      class="mt-24 max-sm:mt-8 self-end flex gap-5 items-center group max-lg:m-auto"
     >
       <Paginate
         :total-itens="countP"
