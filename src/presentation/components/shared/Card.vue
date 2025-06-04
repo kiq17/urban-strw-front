@@ -42,7 +42,7 @@ function handleClick() {
 </script>
 
 <template>
-    <div class="card w-72 h-80">
+    <div class="card w-72 h-80 max-sm:m-auto">
         <RouterLink :to="'/produto/' + props.slug">
             <div class="img w-full h-[85%]  group p-12" :class="loading ? 'load bg-zinc-300 animate-pulse' : 'bg-white'">
                 <img class="w-full h-full group-[.load]:invisible" :src="props.img" :alt="props.alt" loading="lazy"

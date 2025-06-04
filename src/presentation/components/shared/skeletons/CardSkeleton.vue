@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <div class="card w-72 h-80">
+    <div class="card w-72 h-80 max-sm:m-auto">
 
         <div class="img w-full h-[85%] bg-zinc-300 animate-pulse group"></div>
 
