@@ -336,7 +336,7 @@ onMounted(async () => {
   <!-- Responsive filter -->
 
   <div
-    class="h-full fixed max-lg:max-w-[380px] hidden group-data-[state='open']:block top-0 overflow-y-auto z-30"
+    class="h-full fixed max-lg:max-w-[380px] hidden group-data-[state='open']:block top-0 overflow-y-auto z-30 max-sm:left-0 max-sm:w-full" 
   >
     <div class="bg-black z-50 p-3 flex-col gap-5">
       <button
