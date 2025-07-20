@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { useModal } from "@/main/composables/useModal";
+import { Email } from "@/domain/usecases";
 import { SignUp } from "@/domain/usecases/signUp.case";
-import { SignUpValidator } from "@/presentation/validator/signUp.validator";
 import Input from "@/presentation/components/shared/Input.vue";
 import InputPass from "@/presentation/components/shared/InputPass.vue";
-import { ref, watch } from "vue";
+import { SignUpValidator } from "@/presentation/validator/signUp.validator";
 import { useMotions } from "@vueuse/motion";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import Spinner from "./Spinner.vue";
 
 interface Props {
   singUp: SignUp;
+  emailService: Email;
   validator: SignUpValidator;
 }
 
@@ -91,7 +92,7 @@ async function handleSubmit(e: Event) {
   }
 
   try {
-    await props.singUp.create({
+   const result = await props.singUp.create({
       email: email.value,
       senha: senha.value,
       nome: nome.value,
@@ -99,14 +100,14 @@ async function handleSubmit(e: Event) {
         .filter((item) => item.active)
         .map((i) => i.interesse),
     });
+    const otp = await props.emailService.send({
+      id: result.id
+    })
     loading.value = false;
-    router.push("/");
-    const { openModal } = useModal();
-    openModal();
+    router.push(`verificar/${otp.tempLink}`);
   } catch (er) {
-    const err = er as Error;
     loading.value = false;
-    errors.value = { server: err.message };
+    errors.value = { server: er as string };
   }
 }
 </script>

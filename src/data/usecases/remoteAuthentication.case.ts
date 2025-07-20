@@ -16,7 +16,6 @@ export class RemoteAuthentication implements Authentication {
       url: this.url,
       body: params,
     });
-    console.log("body", body)
     switch (statusCode) {
       case HttpStatusCode.ok:
         return body!;
