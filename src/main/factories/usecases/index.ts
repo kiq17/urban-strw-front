@@ -5,4 +5,5 @@ export * from "./remoteLoadProducts.factory";
 export * from "./remoteLoadProductsWithFilter.factory";
 export * from "./remoteLoadSingleProduct.factory";
 export * from "./remoteSignUp.factory";
+export * from "./remoteCheckCode.factory";
 

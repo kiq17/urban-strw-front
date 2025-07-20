@@ -1,8 +1,20 @@
 <script setup lang="ts">
+import { CheckCode } from "@/domain/usecases";
 import { onMounted, ref, watch } from "vue";
+import { useRouter } from "vue-router";
 
 const seconds = ref<number>(300);
 const clicks = ref<number>(0);
+const error = ref<boolean>(false);
+
+interface Props {
+  checkCode: CheckCode;
+  value: string;
+}
+
+const router = useRouter();
+
+const props = defineProps<Props>();
 
 onMounted(() => {
   let interval = setInterval(() => {
@@ -14,7 +26,7 @@ onMounted(() => {
   }, 1000);
 
   watch(clicks, () => {
-    clearInterval(interval); 
+    clearInterval(interval);
     interval = setInterval(() => {
       seconds.value--;
       if (seconds.value === 0) {
@@ -47,9 +59,17 @@ const handleResend = () => {
   // call api again
 };
 
-const sendOtp = () => {
-  console.log("call api");
-};
+async function sendOtp() {
+  try {
+    const IsValid = await props.checkCode.check({
+      tempLink: props.value,
+    });
+
+    if (IsValid) {
+      router.push("/");
+    }
+  } catch (error) {}
+}
 </script>
 
 <template>

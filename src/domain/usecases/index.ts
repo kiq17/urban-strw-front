@@ -5,3 +5,4 @@ export * from "./signUp.case";
 export * from "./loadSingleProduct.case";
 export * from "./loadFavoritesUserProducts.case";
 export * from "./email.case";
+export * from "./checkCode.case";

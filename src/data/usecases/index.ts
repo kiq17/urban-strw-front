@@ -6,4 +6,5 @@ export * from "./remoteLoadProductsWithFilter.case";
 export * from "./remoteLoadSingleProduct.case";
 export * from "./remoteOrder.case";
 export * from "./remoteSignUp.case";
+export * from "./remoteCheckCode.case";
 
