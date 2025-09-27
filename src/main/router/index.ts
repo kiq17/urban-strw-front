@@ -1,6 +1,7 @@
+import { useModal } from "@/main/composables/useModal";
 import { makeStorageValidator } from "@/main/factories/validation/storageValidation.factory";
 import { createRouter, createWebHistory } from "vue-router";
-import { useModal } from "@/main/composables/useModal";
+import { makeRemoteCheckLink } from "../factories/usecases/remoteCheckLink.factory";
 
 const routes = [
   {
@@ -40,8 +41,22 @@ const routes = [
   {
     path: "/verificar/:code",
     component: () => import(`@/presentation/components/OtpComponents/Otp.vue`),
+    beforeEnter: async (to, from) => {
+      const { code } = to.params;
+      const checkLink = makeRemoteCheckLink();
+
+      try {
+        await checkLink.check(code);
+        return true;
+      } catch (error) {
+        return "/";
+      }
+    },
   },
-  { path: '/:pathMatch(.*)*', component: () => import(`@/presentation/pages/NotFound.vue`) },
+  {
+    path: "/:pathMatch(.*)*",
+    component: () => import(`@/presentation/pages/NotFound.vue`),
+  },
 ];
 
 const router = createRouter({
