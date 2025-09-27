@@ -3,9 +3,7 @@ export interface Email {
 }
 
 export namespace Email {
-  export type Params = {
-    id: number;
-  };
+  export type Params = number
 
   export type Result = {
     tempLink: string;

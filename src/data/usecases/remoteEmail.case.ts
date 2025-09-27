@@ -10,14 +10,12 @@ export class RemoteEmail implements Email {
   ) {}
 
   async send(params: Email.Params): Promise<Email.Result> {
-    const {statusCode, body} = await this.httpClient.request({
+    const { statusCode, body } = await this.httpClient.request({
       method: "post",
-      url: this.url,
-      params,
+      url: this.url + params,
     });
-
     switch (statusCode) {
-      case HttpStatusCode.ok:
+      case HttpStatusCode.created:
         return body!;
       case HttpStatusCode.unauthorized:
         throw new InvalidCredentialsError();

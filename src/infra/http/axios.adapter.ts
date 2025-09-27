@@ -11,7 +11,7 @@ export class AxiosAdapter implements HttpClient {
     url,
     body,
     headers,
-    params
+    params,
   }: HttpRequest): Promise<HttpResponse> {
     try {
       const { data, status } = await axios.request({
@@ -20,7 +20,7 @@ export class AxiosAdapter implements HttpClient {
         data: body,
         headers,
         params,
-        withCredentials: true
+        withCredentials: true,
       });
       return {
         statusCode: status,
@@ -28,7 +28,6 @@ export class AxiosAdapter implements HttpClient {
       };
     } catch (error: unknown) {
       const axiosError = error as AxiosError;
-
       if (axiosError.response) {
         return {
           statusCode: axiosError.response.status,
