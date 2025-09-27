@@ -1,4 +1,4 @@
-import { RemoteEmail } from "@/data/usecases/remoteEmail.case";
+import { RemoteEmail } from "@/data/usecases";
 import { Email } from "@/domain/usecases";
 import { makeApiUrl, makeAxiosHttpClient } from "../http";
 

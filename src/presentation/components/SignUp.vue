@@ -92,7 +92,7 @@ async function handleSubmit(e: Event) {
   }
 
   try {
-   const result = await props.singUp.create({
+    const result = await props.singUp.create({
       email: email.value,
       senha: senha.value,
       nome: nome.value,
@@ -100,14 +100,12 @@ async function handleSubmit(e: Event) {
         .filter((item) => item.active)
         .map((i) => i.interesse),
     });
-    const otp = await props.emailService.send({
-      id: result.id
-    })
+    const otp = await props.emailService.send(result.id);
     loading.value = false;
     router.push(`verificar/${otp.tempLink}`);
   } catch (er) {
     loading.value = false;
-    errors.value = { server: er as string };
+    errors.value = { server: (er as Error).message };
   }
 }
 </script>
@@ -283,8 +281,9 @@ async function handleSubmit(e: Event) {
           </div>
         </fieldset>
         <button
-          class="mt-10 ml-auto flex items-center gap-5 py-3 px-10 uppercase font-bold text-lg border-2 border-yellow-300 max-lg:w-full"
+          class="mt-10 ml-auto flex items-center gap-5 py-3 px-10 uppercase font-bold text-lg border-2 border-yellow-300 max-lg:w-full disabled:cursor-not-allowed"
           @click="handleSubmit"
+          :disabled="loading"
         >
           <Spinner v-if="loading" class="m-auto" :st="'w-[52.48px] h-7'" />
           <span class="m-auto" v-else>Criar</span>
@@ -311,7 +310,9 @@ async function handleSubmit(e: Event) {
         </Transition>
       </form>
     </div>
-    <figure class="absolute right-0 bottom-5 -z-10 overflow-hidden max-lg:hidden">
+    <figure
+      class="absolute right-0 bottom-5 -z-10 overflow-hidden max-lg:hidden"
+    >
       <img
         class="-rotate-12"
         src="../assets/grafite.png"

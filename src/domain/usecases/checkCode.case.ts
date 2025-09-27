@@ -3,9 +3,7 @@ export interface CheckCode {
 }
 
 export namespace CheckCode {
-  export type Params = {
-    tempLink: string;
-  };
+  export type Params = string
 
   export type Result = boolean;
 }

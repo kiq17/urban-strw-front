@@ -12,8 +12,7 @@ export class RemoteCheckCode implements CheckCode {
   async check(params: CheckCode.Params): Promise<CheckCode.Result> {
     const { statusCode, body } = await this.httpClient.request({
       method: "get",
-      url: this.url,
-      params,
+      url: this.url + params,
     });
 
     switch (statusCode) {

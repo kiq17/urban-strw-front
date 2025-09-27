@@ -15,7 +15,6 @@ export class RemoteLoadProducts implements LoadProducts {
       method: "get",
       params
     });
-    console.log("body",body)
 
     switch (statusCode) {
       case HttpStatusCode.ok:
