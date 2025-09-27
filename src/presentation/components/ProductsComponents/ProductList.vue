@@ -256,7 +256,7 @@ function handleOpenMenu() {
       />
       <div
         class="text-3xl text-center font-bold min-h-screen m-auto mt-16"
-        v-if="countP == 0"
+        v-if="countP == 0 && !loadingP"
       >
         Oops... Nenhum resultado econtrado
         <p class="text-base font-normal text-zinc-400">
