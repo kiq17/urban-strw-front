@@ -3,7 +3,10 @@ import { ExclamationCircleIcon } from "@heroicons/vue/24/solid";
 import OtpInput from "./OtpInput.vue";
 import { ref } from "vue";
 import OtpButton from "./OtpButton.vue";
-import { makeRemoteCheckCode } from "@/main/factories/usecases";
+import {
+  makeRemoteCheckCode,
+  makeRemoteEmail,
+} from "@/main/factories/usecases";
 
 const otp = ref<string>("");
 
@@ -27,7 +30,11 @@ function onChange(value: string) {
     <div class="flex justify-center items-center h-80 m-auto gap-4">
       <OtpInput :value="otp" :valueLen="6" @change="onChange" />
     </div>
-    <OtpButton :checkCode="makeRemoteCheckCode()" :value="otp" />
+    <OtpButton
+      :checkCode="makeRemoteCheckCode()"
+      :email-service="makeRemoteEmail()"
+      :value="otp"
+    />
   </section>
 </template>
 

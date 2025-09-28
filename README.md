@@ -35,18 +35,18 @@ Projeto de um site e-commerce com foco na moda streetwear.
 <summary><b>(Clique para abrir ou fechar)</b></summary>
 <!-- MarkdownTOC -->
 
-- [Componentes](#driver-installation-instructions-on-linux)
-  a. [Header](#a)
+- [Componentes](#)
+  a. [Header](#header)
   b. [Modal](#modal)
   c. [Input](#a-input)
-- [Arquitertura](#alfa-driver-dvds)
-    - [Dominio](#disk-1-alfa_driver_dvd_old)
+- [Arquitertura](#Arquitertura)
+    - [Dominio](#Domain)
       1. [Casos de uso](#disk-1-alfa_driver_dvd_old)
       1. [Modelos](#disk-1-alfa_driver_dvd_old)
       1. [Erros](#disk-1-alfa_driver_dvd_old)
-    - [Data](#disk-1-alfa_driver_dvd_old)
-    - [Main](#disk-1-alfa_driver_dvd_old)
-    - [Infra](#disk-1-alfa_driver_dvd_old)
+    - [Data](#Main)
+    - [Main](#Main)
+    - [Infra](#Infra)
 
         
 </details>
@@ -86,36 +86,45 @@ C. Links internos
   }
   ```
 
-- Após isso o texto do link fica com uma tonalidade mais clara
+- Após isso o texto do link fica com uma tonalidade mais clara.
 
 D. Butão do menu
 
-- Ao clicar abre-se um modal para o login do usuário
+- Ao clicar abre-se um modal para o login do usuário.
 
 ### Responsividade
 
-Quando o Breakpoint de 500px é atividado
+Quando o Breakpoint de 500px é atividado.
 
 ![header](assets/HEADER_MEDIO.png)
 
-Quando o Breakpoint de 360px é ativado
+Quando o Breakpoint de 360px é ativado.
 
 ![header](assets/HEADER_MOBI.png)
 
-C. Ao mudar a resolução da tela o menu se transforma dando lugar a um butão mobile
+C. Ao mudar a resolução da tela o menu se transforma dando lugar a um butão mobile.
 
-- Ao clicar abre um dropdown com os links e o butão de login
+- Ao clicar abre-se um dropdown com os links e o butão de login.
 
 ```js
-// controla a abertura e fechamento do dropdown
+// controla a abertura e fechamento do dropdown através de um ref
 const isOpen = ref<boolean>(false);
 
 @click="() => (isOpen = !isOpen)"
 ```
 
-- A sessa marcas é retirada do menu, pois na versao mobile do site essa sessa não existe
+- A sessão marcas é retirada do menu, pois na versão mobile do site essa sessão não existe.
 
 ```js
+// realiza a mudança dos itens do menu
+function handleSizeChange() {
+  if (window.innerWidth < 1000) {
+    itens.value = ["home", "produtos", "eventos"];
+  } else {
+    itens.value = ["home", "marcas", "produtos", "lojas"];
+  }
+}
+
 // função ativa quando app é renderizado pelo primeira vez
 onMounted(() => {
   window.addEventListener("resize", handleSizeChange);
@@ -126,15 +135,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", handleSizeChange);
 });
-
-// realiza a mudanca dos itens do Ref no Vue
-function handleSizeChange() {
-  if (window.innerWidth < 1000) {
-    itens.value = ["home", "produtos", "eventos"];
-  } else {
-    itens.value = ["home", "marcas", "produtos", "lojas"];
-  }
-}
 ```
 
 ### Imagens da home page
@@ -148,11 +148,12 @@ function handleSizeChange() {
  ┃ ┃ ┗ 📜BannerHome.vue
 ```
 
-As imagens possuem um modo de carregamento diferente. Em vez de ser carregada de forma fracionada, aparecendo de parte em parte, foi adicionada uma imagem com um tamnho menor e resolução menor porém ao implementar alguns estilos el fica com efeito embaçado, melhorando visualmente o carregamento para o usuário.
+As imagens possuem um modo de carregamento diferente. Em vez de ser carregada de forma fracionada, aparecendo de parte em parte, foi adicionada uma imagem com um tamnho menor e resolução menor porém ao implementar alguns estilos ela fica com efeito embaçado, melhorando visualmente o carregamento para o usuário.
 
 ![header](assets/HOME_LOAD.png)
 
 ```js
+// função para trocar a imagem conforme o loading
 watch(imgHtml, () => {
   if (imgHtml.value) {
     if (imgHtml.value.complete) {
@@ -164,7 +165,7 @@ watch(imgHtml, () => {
 });
 ```
 
-Uma classe dinamica é adionada para fazer o efeito de blur depende do loading. Uma imagem comprimida é exposta durante o carregamento, enquanto a imagem principal é carregada.
+Uma classe dinâmica é adionada para fazer o efeito de blur com base no loading. Uma imagem comprimida é exposta durante o carregamento, enquanto a imagem principal é carregada.
 
 ```html
 <div :class="loading ? 'load' : ''"></div>
@@ -183,9 +184,9 @@ Uma classe dinamica é adionada para fazer o efeito de blur depende do loading. 
 
 ![header](assets/CARD.png)
 
-A. Título do produto possui um split para adicionar "..." caso o texto for muito grande
+A. Título do produto possui um split para adicionar "..." caso o texto for muito grande.
 
-B. Butão para adicionar item ao carrinho, caso o usuário não possuir uma conta um modal de login irá abrir
+B. Butão para adicionar item ao carrinho, caso o usuário não possuir uma conta um modal de login irá abrir.
 
 ### Modal
 
@@ -200,7 +201,7 @@ B. Butão para adicionar item ao carrinho, caso o usuário não possuir uma cont
 
 ![header](assets/MODAL.png)
 
-Ao clicar no butão "Entrar" abre-se um modal com animação fade
+Ao clicar no butão "Entrar" abre-se um modal com animação fade.
 
 Possui um fundo preto com opacidade e uma janela. A estrutura HTML é transportada para o body, porém o código está dentro da div que é renderizada pelo Vue.
 
@@ -224,7 +225,7 @@ Sintaxe:
  ┃ ┃ ┃ ┗ 📜Input.vue
 ```
 
-Por se utilizado em várias partes do site o foi criado um componente para o input que possui essas props:
+Por se utilizado em várias partes do site foi criado um componente para o input que possui essas props:
 
 ```js
   interface inputProps extends InputHTMLAttributes {
@@ -235,25 +236,25 @@ Por se utilizado em várias partes do site o foi criado um componente para o inp
   }
 ```
 
-A máscara seria para formatar o valor que é digitado pelo usuario. Exmplo cpf digitado é trnasformado em 999.999.999-99 em vez de ser um 99999999999
+A máscara seria para formatar o valor que é digitado pelo usuário. Ao ser escolhida a máscara CPF o valor digitado é transformado em 999.999.999-99 em vez de ser um 99999999999.
 
-A handleChange é usada para passar o valor para a uma ref e também fazer validação do que é digitado
+A função handleChange é usada para passar o valor para a uma ref e também fazer validação do que é digitado.
 
 B. Icone para mudar tipo do input
 
-- Ao clicar no icone transforma o input do `"type"="password"` para o `"type"="text"`, possibilitando a visualização do texto
+- Ao clicar no icone transforma o input do `"type"="password"` para o `"type"="text"`, possibilitando a visualização do texto.
 
 C. Butão
 
-- Ao clicar verifica os dados e executa função que irá enviar os dados para API, enquanto isso o texto do butão é substituido por um loading
+- Ao clicar verifica os dados e executa função que irá enviar os dados para API, enquanto isso o texto do butão é substituido por um spniner e fica desabilitado para o clique do usário.
 
 D. Butão criar conta
 
-- Leva o usuário para a pagina de cadastro
+- Leva o usuário para a página de cadastro.
 
 E. Login com o Google Account
 
-- Por nao ter sido implementado ainda está desabilidatado com o hover
+- Por nao ter sido implementado ainda está desabilidatado com efeito hover
 
 ### Página produtos
 
@@ -266,17 +267,17 @@ E. Login com o Google Account
  ┃ ┃ ┗ 📜Products.vue
 ```
 
-Nesta página tem a renderização dos produtos, primeiro é realizado o loading do produto enquanto isso é mostrada uma animação pulse.
+Nesta página tem a renderização dos produtos, primeiro é realizado o loading do produto e enquanto isso é mostrada uma animação pulse.
 
 ![header](assets/PRODUTOS_LOAD.png)
 
-Para fazer esse efeito foi utilizado uma Ref do Vue para controlar o loading durante a chamada para API
+Para fazer esse efeito foi utilizado uma Ref e v-if do Vue para controlar o loading durante a chamada para API.
 
 ```html
 <div v-if="loading" class="w-1/2 h-9 rounded-md animate-pulse bg-zinc-300"></div>
 ```
 
-Caso ocorra algum erro durante a chamada para API um mensagem é mostrado na tela em vez dos produtos. Essa mensagem também é mostrado caso nenhum produtos for encontrado durante a utilização do filtro
+Caso ocorra algum erro durante a chamada para API um mensagem é mostrada na tela em vez dos produtos. Essa mensagem também é mostrada caso nenhum produtos for encontrado durante a utilização do filtro.
 
 ![header](assets/PRODUTOS_ERROR.png)
 
@@ -296,7 +297,7 @@ Caso ocorra algum erro durante a chamada para API um mensagem é mostrado na tel
 
 A. Butão comprar
 
-- Leva o usuário para página de comprar, porém caso ele não esteja logado irá abrir o modal de login
+- Leva o usuário para página de comprar, porém caso ele não esteja logado irá abrir o modal de login.
 
 B. Butão para adicionar no carrinho
 
@@ -308,13 +309,20 @@ B. Butão para favoritar item
 
 ## Arquitetura
 
-A aplicação foi desenvolvida utilizando o conceita da arquitura limpa
+A aplicação foi desenvolvida utilizando o conceita da arquitura limpa.
+
+Camadas:
+- [Domain](#Domain)
+- [Data](#Data)
+- [Infra](#Infra)
+- [Main](#Main)
+- [Presentation](#Presentation)
 
 ## Domain
 
 O domain foi divido em: Casos de uso, modelos e erros
 
-A. Casos de uso
+### A. Casos de uso
 
 1. Autenticação
 
@@ -406,7 +414,7 @@ A. Casos de uso
   }
 ```
 
-B. Modelos
+### B. Modelos
 
 Basicamente interfaces que tipam o retorno esperado de cada caso de uso e objetos
 
@@ -496,7 +504,7 @@ Basicamente interfaces que tipam o retorno esperado de cada caso de uso e objeto
   }
 ```
 
-C. Errors
+### C. Errors
 
 Classes criadas para lançar errors personalizados
 
@@ -565,9 +573,9 @@ Nesta camada ocorre a implementação dos casos de usos
     ) {}
   }
 ```
-em Todos os casos de usos são feitas chamdas para API, por isso todos os construtores tem como parametro url e httpClient.
+Em todos os casos de usos são feitas chamdas para API, por isso todos os construtores tem como parametro url e httpClient.
 
-o httpClient é uma forma de cirar um meio de pode realizar um troca mais rapido para um biblioteca http sem precisa mexer muito no código da aplicação. Fazendo que a aplicaçõ não fique presa a um fator externo.
+o httpClient é uma forma de cirar um meio de pode realizar um troca mais rápida para um biblioteca http sem precisa mexer muito no código da aplicação. Fazendo que a aplicação não fique presa a um fator externo.
 
 ```js
   export type HttpRequest = {
@@ -604,7 +612,7 @@ o httpClient é uma forma de cirar um meio de pode realizar um troca mais rapido
 
 ## Infra 
 
-Resnsavel por manter dependencias externas da aplicação e adaptar elas conforme o uso. Utilizando o exemplo do HttpClient da camada Data, temos o adapter do axios:
+Responsavel por manter dependencias externas da aplicação e adaptar elas conforme o uso. Utilizando o exemplo do HttpClient da camada Data, temos o adapter do axios:
 
 ```js
   export class AxiosAdapter implements HttpClient {
@@ -647,17 +655,17 @@ Resnsavel por manter dependencias externas da aplicação e adaptar elas conform
   }
 ```
 
-Esse código faz com que o axios de adpte ao código do HttpClient que está respeita a lógica da aplicação.
+Esse código faz com que o axios se adpte ao código do HttpClient que está respeitando a lógica da aplicação.
 
 ## Main
 
-Finalização do que está sendo implementado na camada Data e um pouco do código que está ligado ao Vue
+Finalização do que está sendo implementado na camada Data.
 
 ```js
   export const makeRemoteAuthentication = (): Authentication =>
   new RemoteAuthentication(makeApiUrl("/users/login"), makeAxiosHttpClient());
 ```
-Nesse caso se ve uma grande vantagem de utilizar a arquitetura limpa, caso seja necessário utilizar outra blibioteca em vez do Axios, seria necessário mudar apenas uma linha. Logicamente também criar um adater para a biblioteca
+Nesse caso se ve uma grande vantagem de utilizar a arquitetura limpa, caso seja necessário utilizar outra blibioteca em vez do Axios, seria necessário mudar apenas uma linha. Logicamente também criar um adater para a biblioteca.
 
 ```js
   export const makeRemoteAuthentication = (): Authentication =>
@@ -666,7 +674,7 @@ Nesse caso se ve uma grande vantagem de utilizar a arquitetura limpa, caso seja 
 
 ## Presentation
 
-Apresentção da aplicação
+Apresentção da aplicação.
 
 ```html 
   <Teleport to="body">
@@ -685,6 +693,37 @@ Apresentção da aplicação
 
 O código não deve ser implementado dentro do componente, código do modal deve ser referente ao modal (interações com o dom), diferente disso deve seguir a linha:
 
-Domain => Data => Main
+Domain => Data => Main => Presentation
 
-Depois ser passado como prop para o componente
+Depois ser passado como prop para o componente.
+
+## Outros
+
+### Compiler Options
+
+Para facilitar o import dos arquivos foi usada uma configuração diferente
+
+Typescript config
+
+```js
+"paths": {
+    "@/*": ["*"]
+}
+```
+
+Juntamente com o vite config
+
+```js
+export default defineConfig({
+  plugins: [vue(), nodePolyfills()],
+  server: {
+    port: 3000,
+  },
+  base: "./",
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+});
+```

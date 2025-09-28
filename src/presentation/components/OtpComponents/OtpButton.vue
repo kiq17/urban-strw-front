@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CheckCode } from "@/domain/usecases";
+import { CheckCode, Email } from "@/domain/usecases";
 import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 
@@ -10,6 +10,7 @@ const error = ref<boolean>(false);
 interface Props {
   checkCode: CheckCode;
   value: string;
+  emailService: Email;
 }
 
 const router = useRouter();
@@ -37,7 +38,7 @@ onMounted(() => {
   });
 });
 
-const handleResend = () => {
+async function handleResend() {
   if (seconds.value > 0) return;
 
   seconds.value = 0;
@@ -56,14 +57,15 @@ const handleResend = () => {
       break;
   }
 
-  // call api again
-};
+  // send code again
+  // const otp = await props.emailService.send({
+  //   id: result.id,
+  // });
+}
 
 async function sendOtp() {
   try {
-    const IsValid = await props.checkCode.check({
-      tempLink: props.value,
-    });
+    const IsValid = await props.checkCode.check(props.value);
 
     if (IsValid) {
       router.push("/");
