@@ -1,7 +1,7 @@
+import { CodeExpiredError, InvalidCodeError } from "@/domain/errors";
+import { UnexpectedError } from "@/domain/errors/unexpected.error";
 import { CheckCode } from "@/domain/usecases";
 import { HttpClient, HttpStatusCode } from "../protocols/http/httpClient";
-import { InvalidCredentialsError } from "@/domain/errors/invalidCredentials.error";
-import { UnexpectedError } from "@/domain/errors/unexpected.error";
 
 export class RemoteCheckCode implements CheckCode {
   constructor(
@@ -18,8 +18,10 @@ export class RemoteCheckCode implements CheckCode {
     switch (statusCode) {
       case HttpStatusCode.ok:
         return Boolean(body!);
-      case HttpStatusCode.unauthorized:
-        throw new InvalidCredentialsError();
+      case HttpStatusCode.badRequest:
+        throw new CodeExpiredError();
+      case HttpStatusCode.notFound:
+        throw new InvalidCodeError();
       default:
         throw new UnexpectedError();
     }

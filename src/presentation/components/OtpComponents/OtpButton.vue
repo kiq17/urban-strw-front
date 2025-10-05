@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { CheckCode, Email } from "@/domain/usecases";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref, Teleport, watch } from "vue";
 import { useRouter } from "vue-router";
+import Toast from "../Toast.vue";
 
 const seconds = ref<number>(300);
 const clicks = ref<number>(0);
 const error = ref<boolean>(false);
+const msg = ref<string>("");
 
 interface Props {
   checkCode: CheckCode;
@@ -65,12 +67,16 @@ async function handleResend() {
 
 async function sendOtp() {
   try {
+    error.value = false;
     const IsValid = await props.checkCode.check(props.value);
 
     if (IsValid) {
       router.push("/");
     }
-  } catch (error) {}
+  } catch (err) {
+    error.value = true;
+    msg.value = (err as Error).message;
+  }
 }
 </script>
 
@@ -99,4 +105,11 @@ async function sendOtp() {
       }}
     </button>
   </div>
+  <Teleport to="body">
+    <Toast
+      v-if="error"
+      :title="msg"
+      text="Devido esse condição a verificação não concluída."
+    />
+  </Teleport>
 </template>
