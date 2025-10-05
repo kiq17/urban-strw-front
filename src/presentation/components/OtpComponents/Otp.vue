@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ExclamationCircleIcon } from "@heroicons/vue/24/solid";
-import OtpInput from "./OtpInput.vue";
-import { ref } from "vue";
-import OtpButton from "./OtpButton.vue";
 import {
   makeRemoteCheckCode,
   makeRemoteEmail,
 } from "@/main/factories/usecases";
+import { ExclamationCircleIcon } from "@heroicons/vue/24/solid";
+import { ref } from "vue";
+import OtpButton from "./OtpButton.vue";
+import OtpInput from "./OtpInput.vue";
 
 const otp = ref<string>("");
 
